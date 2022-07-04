@@ -1,0 +1,18 @@
+name: Job Theme
+type: theme
+description: 'This is my Job Theme'
+# package: Other
+core_version_requirement: ^8 || ^9
+# version: VERSION
+libraries:
+  - job_theme/global-styling
+base theme: stable
+regions:
+  header: Header
+  mythememenu: Navigation
+  content: Content
+  front: Front Page Blocks
+  footer: Footer
+  filter: Filter
+  page_top: Page top
+  page_bottom: Page bottom

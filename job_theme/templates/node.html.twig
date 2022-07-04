@@ -1,0 +1,145 @@
+{#
+/**
+ * @file
+ * Theme override to display a node.
+ *
+ * Available variables:
+ * - node: The node entity with limited access to object properties and methods.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - node.getCreatedTime() will return the node creation timestamp.
+ *   - node.hasField('field_example') returns TRUE if the node bundle includes
+ *     field_example. (This does not indicate the presence of a value in this
+ *     field.)
+ *   - node.isPublished() will return whether the node is published or not.
+ *   Calling other methods, such as node.delete(), will result in an exception.
+ *   See \Drupal\node\Entity\Node for a full list of public properties and
+ *   methods for the node object.
+ * - label: The title of the node.
+ * - content: All node items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - author_picture: The node author user entity, rendered using the "compact"
+ *   view mode.
+ * - metadata: Metadata for this node.
+ * - date: Themed creation date field.
+ * - author_name: Themed author name field.
+ * - url: Direct URL of the current node.
+ * - display_submitted: Whether submission information should be displayed.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - node: The current template type (also known as a "theming hook").
+ *   - node--type-[type]: The current node type. For example, if the node is an
+ *     "Article" it would result in "node--type-article". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - node--view-mode-[view_mode]: The View Mode of the node; for example, a
+ *     teaser would result in: "node--view-mode-teaser", and
+ *     full: "node--view-mode-full".
+ *   The following are controlled through the node publishing options.
+ *   - node--promoted: Appears on nodes promoted to the front page.
+ *   - node--sticky: Appears on nodes ordered above other non-sticky nodes in
+ *     teaser listings.
+ *   - node--unpublished: Appears on unpublished nodes visible only to site
+ *     admins.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - content_attributes: Same as attributes, except applied to the main
+ *   content tag that appears in the template.
+ * - author_attributes: Same as attributes, except applied to the author of
+ *   the node tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - teaser: Flag for the teaser state. Will be true if view_mode is 'teaser'.
+ * - page: Flag for the full page state. Will be true if view_mode is 'full'.
+ * - readmore: Flag for more state. Will be true if the teaser content of the
+ *   node cannot hold the main body content.
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @see template_preprocess_node()
+ *
+ */
+#}
+<article{{ attributes }}>
+<div class="node_container w-[1110px] m-auto">
+
+
+    <div class="node_header bg-white dark:bg-[#19202D] flex rounded-md -mt-11">
+        {{ content.field_node_image }}  
+        <div class="flex p-10 self-center"> 
+            <div>      
+                <div class="company_name text-very_dark_blue dark:text-white font-bold text-2xl block capitalize">{{ content.field_com }}</div>
+                <div class="company_website text-dark_gray dark:text-gray text-base">{{ content.field_web_address }}</div>          
+            </div>
+            <div class="self-center absolute right-[200px]">
+                <a href="#" class="bg-light_grey py-4 px-7 rounded text-violet font-bold text-base self-center capitalize">Company Site</a>        
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="node_content bg-white dark:bg-[#19202D] p-12 mt-8">
+        <div class="node_content_header flex justify-between">
+            <div class="">
+                <div class="flex text-dark_gray text-base">
+                    <div class="date"><span>{{ content.field_job_date }}</span></div>
+                        <div class="circle-icon self-center px-3">
+                            <svg width="4" height="4" viewBox="0 0 4 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="2" cy="2" r="2" fill="#6E8098"/>
+                            </svg>
+                        </div>
+                    <div class="job-graphic capitalize"><span>{{ content.field_job_type }}</span></div>
+                </div>
+                <h2 class="job-title pt-3 text-very_dark_blue dark:text-white font-bold text-xl capitalize">{{ content.field_job_title }}</h2>
+                <div class="location text-sm text-violet pt-8 font-bold capitalize">{{ content.field_location }}</div>
+            </div>
+            <div class="self-center">
+                <a href="#" class="bg-violet py-4 px-7 rounded text-white font-bold text-base capitalize">Apply Now</a>
+            </div>
+        </div>
+
+
+        <div class="long_text text-dark_gray dark:text-gray text-base leading-7 mt-10">
+            {{ content.field_longg_text }}
+        </div>
+
+
+        <div class="requiremets_box">
+            <p class="text-very_dark_blue dark:text-white font-bold text-xl my-10 capitalize">Requirements</p>
+            <div class="text-dark_gray dark:text-gray text-base leading-7">
+                {{ content.field_longg_text}}
+            </div>
+        </div>
+
+        <div class="will_do_box">
+            <p class="text-very_dark_blue dark:text-white font-bold text-xl my-10 capitalize">What You Will Do</p>
+            <div class="text-dark_gray dark:text-gray text-base leading-7">
+                {{ content.field_longg_text }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="node_footer bg-white dark:bg-[#19202D]">
+    <div class="w-[1110px] m-auto mt-20 py-7">
+        <div class="flex justify-between">
+            <div>
+                <h2 class="job-title pt-3 text-very_dark_blue dark:text-white font-bold text-xl capitalize">{{ content.field_job_title }}</h2>
+                
+                <div class="company_website text-dark_gray dark:text-gray text-base capitalize"><span>So Digital Inc.</span></div>          
+            </div>
+            <div class="self-center">
+                <a href="#" class="bg-violet py-4 px-7 rounded text-white font-bold text-base capitalize">Apply Now</a>
+            </div>
+        </div>
+    </div>
+</div>
+</article>

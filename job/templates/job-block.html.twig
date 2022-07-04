@@ -1,0 +1,57 @@
+{# form #}
+<div class="relative  flex -top-[30px]">
+  <form class="flex mx-auto" action="" method="post">
+    <div class= "  dark:text-white relative flex flex-shrink  bg-white  dark:bg-[#19202D]  h-20 mx-auto items-center  rounded-md">
+        <div class="relative flex left-8  ">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M16.024 15.0588H17.1123L23.9435 21.9037L21.9037 23.9435L15.0588 17.1123V16.0308L14.6824 15.6544C13.1286 16.9891 11.1093 17.7968 8.89842 17.7968C3.98374 17.7968 0 13.8131 0 8.89842C0 3.98374 3.98381 0 8.89842 0C13.813 0 17.7968 3.98374 17.7968 8.89842C17.7968 11.1093 16.9891 13.1286 15.6475 14.6824L16.024 15.0588ZM2.73799 8.89842C2.73799 12.3003 5.49651 15.0588 8.89842 15.0588C12.3003 15.0588 15.0588 12.3003 15.0588 8.89842C15.0588 5.49651 12.3003 2.73799 8.89842 2.73799C5.49651 2.73799 2.73799 5.49651 2.73799 8.89842Z" fill="#5964E0"/>
+            </svg>
+            <input class="    outline-none  h-6 ml-4 w-[271px] rounded-md border-none outline-hidden  focus:border-none focus:outline-none dark:bg-[#19202D] " type="search" value="" name="title" id="" placeholder="Filter by title, companies, expertise…">
+        </div>
+        <div class=" flex ml-[144px]">
+            <svg width="17" height="24" viewBox="0 0 17 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.44766 0C10.6803 0 12.7796 0.870546 14.3584 2.45105C17.2802 5.37556 17.6433 10.8781 15.1348 14.2255L8.44766 23.894L1.75053 14.2119C-0.748035 10.8781 -0.384933 5.37556 2.53689 2.45105C4.11571 0.870546 6.21455 0 8.44766 0ZM5.47353 8.29091C5.47353 9.97484 6.84268 11.3455 8.52481 11.3455C10.2069 11.3455 11.5761 9.97484 11.5761 8.29091C11.5761 6.60698 10.2069 5.23636 8.52481 5.23636C6.84268 5.23636 5.47353 6.60698 5.47353 8.29091Z" fill="#5964E0"/>
+            </svg>
+
+            <input class="  outline-none h-6 ml-4 w-[135px] rounded-md border-none outline-hidden  focus:border-none focus:outline-none dark:bg-[#19202D] "  type="search" value="" name="location" id="" placeholder="Filter by location…">
+        </div>
+    <div class="  relative flex  ml-[140px] h-6">
+        <input class="rounded-[3px]  w-6 h-6 checked:opacity-100 accent-[#939BF4] opacity-10 mix-blend-normal " type="checkbox" name="full_time" value="full time" id="">
+        <p class="dark:text-white  leading-5  text-[16px] ml-4 font-bold text-[#19202D]">Full Time Only</p>
+    </div>
+    <div class=" relative flex ml-7 w-[140px]">
+        <button  type="submit" value="full" name="" class="    w-[123px] h-12 rounded-md  bg-[#5964E0] hover:bg-[#939BF4] text-base font-bold text-white " >Search</button></div>
+    </div>
+    </div>
+  </form>
+</div>
+{# job block #}
+<div class="w-[1110px] m-auto">
+  <div class="grid grid-cols-3 gap-x-8 gap-y-16 mt-[105px]">
+    {% for item in jobs %}
+      <article class="job-item bg-white dark:bg-[#19202D] w-[350px] h-[228px] rounded-[6px]">
+        <img class="mt-[-25px] ml-8 rounded-[15px]" src="{{ item.thumbnail }}" alt="company logo">
+        <div class="pl-8 pt-6">
+          <div class="flex text-dark_gray text-base">
+            <div class="date"><span>{{ item.date }}</span></div>
+            <div class="circle-icon self-center px-3">
+              <svg width="4" height="4" viewBox="0 0 4 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="2" cy="2" r="2" fill="#6E8098"/>
+              </svg>
+            </div>
+            <div class="job-graphic capitalize"><span>{{ item.job_type }}</span></div>
+          </div>
+          <a href="/drupaljob/node/{{item.url_to_node}}">
+            <h2 class="job-title pt-3 text-very_dark_blue dark:text-white font-bold text-xl">{{ item.title }}</h2>
+          </a>
+          <p class="company-name text-dark_gray pt-3 text-base">{{ item.company_name }}</p>
+          <p class="location text-sm text-violet pt-8 font-bold">{{ item.location }}</p>
+        </div>
+      </article>
+    {% endfor %}
+    
+  </div>
+  <div class="text-center my-20">
+      <a href="#" class="bg-violet py-4 px-7 rounded text-white font-bold text-base capitalize">Apply Now</a>
+  </div>
+</div>
