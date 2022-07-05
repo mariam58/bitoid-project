@@ -25,6 +25,4 @@ const themeSwitch = () => {
 mode.addEventListener("click", () => {
     themeSwitch();
 })
-
-
 themeCheck();
