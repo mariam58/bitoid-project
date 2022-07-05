@@ -4,7 +4,6 @@ namespace Drupal\job\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\node\Entity\Node;
-// use Drupal\media\Entity\Media;
 use Drupal\file\Entity\File;
 use Drupal\image\Entity\ImageStyle;
 
@@ -23,34 +22,35 @@ class JobController extends ControllerBase {
     $title = \Drupal::request()->request->get('title');
     $location = \Drupal::request()->request->get('location');
     $checkbox = \Drupal::request()->request->get('full_time');
+    $conditions_array= array();
 
-    // dump($checkbox);
-
-
-    $node_storage = \Drupal::entityTypeManager()->getStorage('node');
-
-    if(strlen($title)===0 && strlen($location)===0){
-        $nids=$node_storage->getQuery()
+    if(! empty($title)){
+      $conditions_array[] = ['title.value', $title];
+    }
+    if(! empty($location)){
+      $conditions_array[] = ['field_location.value', $location];
+    }
+    if(count($conditions_array) > 0){
+      $query = \Drupal::entityQuery('node');
+      $group = $query->orConditionGroup()
+        ->condition('title.value', $title)
+        ->condition('field_location.value', $location);
+      $nids = $query
         ->condition('type', 'job')
+        ->condition($group)
         ->execute();
     }else{
-        $nids=$node_storage->getQuery()
-        ->condition('type', 'job')
-        // ->condition('title.value', $title)
-        // ->condition('field_location.value', $location)
-        ->condition('field_job_type.value', $checkbox)
-        ->execute();
+      $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+      $nids=$node_storage->getQuery()
+      ->condition('type', 'job')
+      ->execute();
     }
-
-        $results = Node::loadMultiple($nids);
-         
-
-        
+    
+    $results = Node::loadMultiple($nids);
 
     $jobs = [];
     
     foreach($results as $key => $result){
-    //  dump($key);
       $node_url = array_keys($results);
         $fid = $result->field_thumbnail->getValue()[0]['target_id'];
             $file = File::load($fid);
@@ -59,7 +59,6 @@ class JobController extends ControllerBase {
             $uri = $style->buildUri($image_uri);
             $url = $style->buildUrl($image_uri);
       
-        
         $jobs[]=[
           'url_to_node' => $key,
           'thumbnail' => $url,
@@ -69,11 +68,8 @@ class JobController extends ControllerBase {
           'company_name' => $result->field_com->value,          
           'location' => $result->field_location->value,          
         ];
-        // dump($result->field_job_type->value);
     };
-        
-        
-        // die;
+
     return [
       '#theme' => 'job_block',
       '#jobs' => $jobs,
